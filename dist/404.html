@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Redirecting...</title>
+    <script type="text/javascript">
+      // Get the current path, excluding the domain
+      var path = window.location.pathname;
+
+      // Extract the repository name from the base URL (e.g., /ecotrckreact/)
+      // This should match your vite.config.ts base and BrowserRouter basename
+      var repoName = '/ecotrckreact/'; // IMPORTANT: Make sure this matches your repo name with leading and trailing slash
+
+      // Construct the full redirect URL to the app's base
+      // Example: https://mohammedabarh.github.io/ecotrckreact/
+      var redirectUrl = window.location.origin + repoName;
+
+      // If the path already includes the repo name at the beginning,
+      // then we are likely on a sub-route within the app's context.
+      // In this case, we simply redirect to the root of the app within the repo.
+      if (path.startsWith(repoName)) {
+          window.location.replace(redirectUrl);
+      } else {
+          // If the path does not start with the repo name, it means
+          // the user is trying to access something completely outside the repo's expected structure.
+          // In this scenario, we still redirect to the app's base to load the SPA.
+          // This handles cases where someone lands on something like /ecotrckreact/nonexistent-folder/
+          // The setTimeout is a common practice to give search engines a brief moment to see the 404
+          setTimeout(function() {
+              window.location.replace(redirectUrl);
+          }, 50); // A small delay is sufficient
+      }
+    </script>
+  </head>
+  <body>
+    <p>If you are not redirected automatically, follow this <a href="/ecotrckreact/">link to the application</a>.</p>
+  </body>
+</html>
